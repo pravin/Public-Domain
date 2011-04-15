@@ -90,7 +90,9 @@ class MaxHeap:
             if self.heap[i] == key:
                 self.heap[i] += value
                 # Key increased, heapify parent
-                self.max_heapify(self.parent(i))
+                while i != 0 and self.heap[self.parent(i)] < self.heap[i]:
+                    self.heap[i], self.heap[self.parent(i)] = self.heap[self.parent(i)], self.heap[i]
+                    i = self.parent(i)
                 break
 
     def heap_sort(self):

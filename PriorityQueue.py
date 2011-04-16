@@ -66,7 +66,7 @@ class PriorityQueue:
         output.append(self.heap.pop())
         self.heap = output
 
-    def propogate_up(self, index):
+    def propagate_up(self, index):
         """ Compares index with parent and swaps node if larger O(log(n)) """
         while index != 0 and self.heap[self.parent(index)][0] < self.heap[index][0]:
             self.heap[index], self.heap[self.parent(index)] = self.heap[self.parent(index)], self.heap[index]
@@ -75,7 +75,7 @@ class PriorityQueue:
     def add(self, obj):
         """ Adds an element in the heap O(ln(n)) """
         self.heap.append(obj)
-        self.propogate_up(len(self.heap) - 1) # Index value is 1 less than length
+        self.propagate_up(len(self.heap) - 1) # Index value is 1 less than length
 
     def extract_max(self):
         """
@@ -94,7 +94,7 @@ class PriorityQueue:
         for i in xrange(len(self.heap)):
             if self.heap[i][1] == key:
                 self.heap[i] = (value + self.heap[i][0], key)
-                self.propogate_up(i)
+                self.propagate_up(i)
                 break
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ class PriorityQueue:
 
     def __init__(self):
         self.heap = [
-            (15, 'http://google.co.uk'), 
+            (15, 'http://google.co.uk'),
             (13, 'http://yahoo.co.uk'),
             (9, 'http://insanitybegins.com')
             ]
@@ -31,7 +31,7 @@ class PriorityQueue:
         Responsible for maintaining the heap property of the heap.
         This function assumes that the subtree located at left and right
         child satisfies the max-heap property. But the tree at index
-        (current node) does not.
+        (current node) does not. O(log n)
         """
         left_index = self.left_child(index)
         right_index = self.right_child(index)
@@ -48,25 +48,39 @@ class PriorityQueue:
 
     def build_max_heap(self):
         """
-        Responsible for building the heap bottom up. It starts with the lowest
-        non-leaf nodes and calls heapify on them
+        Responsible for building the heap bottom up. It starts with the lowest non-leaf nodes
+        and calls heapify on them. This function is useful for initialising a heap with an
+        unordered array. O(n)
         """
         for i in xrange(len(self.heap)/2, -1, -1):
             self.max_heapify(i)
 
+    def heap_sort(self):
+        """ The heap-sort algorithm with a time complexity O(n*log(n)) """
+        self.build_max_heap()
+        output = []
+        for i in xrange(len(self.heap)-1, 0, -1):
+            self.heap[0], self.heap[i] = self.heap[i], self.heap[0]
+            output.append(self.heap.pop())
+            self.max_heapify(0)
+        output.append(self.heap.pop())
+        self.heap = output
+
+    def propogate_up(self, index):
+        """ Compares index with parent and swaps node if larger O(log(n)) """
+        while index != 0 and self.heap[self.parent(index)][0] < self.heap[index][0]:
+            self.heap[index], self.heap[self.parent(index)] = self.heap[self.parent(index)], self.heap[index]
+            index = self.parent(index)
+
     def add(self, obj):
-        """ Adds an element in the heap """
-        value, key = obj
+        """ Adds an element in the heap O(ln(n)) """
         self.heap.append(obj)
-        i = len(self.heap) - 1
-        while i != 0 and self.heap[self.parent(i)][0] < self.heap[i][0]:
-            self.heap[i], self.heap[self.parent(i)] = self.heap[self.parent(i)], self.heap[i]
-            i = self.parent(i)
+        self.propogate_up(len(self.heap) - 1) # Index value is 1 less than length
 
     def extract_max(self):
         """
-        Part of the Priority Queue, extracts the element on the top of the heap
-        and then re-heapifies
+        Part of the Priority Queue, extracts the element on the top of the heap and
+        then re-heapifies. O(log n)
         """
         max = self.heap[0]
         data = self.heap.pop()
@@ -76,30 +90,12 @@ class PriorityQueue:
         return max
 
     def increment(self, key, value):
-        """
-        Increments key by value
-        """
+        """ Increments key by the input value. O(log n) """
         for i in xrange(len(self.heap)):
             if self.heap[i][1] == key:
                 self.heap[i] = (value + self.heap[i][0], key)
-                # Key increased, heapify parent
-                while i != 0 and self.heap[self.parent(i)] < self.heap[i]:
-                    self.heap[i], self.heap[self.parent(i)] = self.heap[self.parent(i)], self.heap[i]
-                    i = self.parent(i)
+                self.propogate_up(i)
                 break
-
-    def heap_sort(self):
-        """
-        The heap-sort algorithm with a time complexity O(n log n)
-        """
-        self.build_max_heap()
-        output = []
-        for i in xrange(len(self.heap)-1, 0, -1):
-            self.heap[0], self.heap[i] = self.heap[i], self.heap[0]
-            output.append(self.heap.pop())
-            self.max_heapify(0)
-        output.append(self.heap.pop())
-        self.heap = output
 
 if __name__ == '__main__':
     # Create the heap object

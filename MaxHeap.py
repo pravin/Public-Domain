@@ -74,7 +74,7 @@ class MaxHeap:
         output.append(self.heap.pop())
         self.heap = output
 
-    def propogate_up(self, index):
+    def propagate_up(self, index):
         """ Compares index with parent and swaps node if larger O(log(n)) """
         while index != 0 and self.heap[self.parent(index)] < self.heap[index]:
             self.heap[index], self.heap[self.parent(index)] = self.heap[self.parent(index)], self.heap[index]
@@ -83,7 +83,7 @@ class MaxHeap:
     def add(self, key):
         """ Adds an element in the heap O(ln(n)) """
         self.heap.append(key)
-        self.propogate_up(len(self.heap) - 1) # Index value is 1 less than length
+        self.propagate_up(len(self.heap) - 1) # Index value is 1 less than length
 
     def extract_max(self):
         """
@@ -102,7 +102,7 @@ class MaxHeap:
         for i in xrange(len(self.heap)):
             if self.heap[i] == key:
                 self.heap[i] += value
-                self.propogate_up(i)
+                self.propagate_up(i)
                 break
 
 

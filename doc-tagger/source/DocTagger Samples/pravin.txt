@@ -1,0 +1,3 @@
+﻿Stopwords list - http://www.lextek.com/manuals/onix/stopwords1.html
+
+WSD not done

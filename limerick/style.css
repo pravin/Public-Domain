@@ -1,0 +1,47 @@
+/*
+ * 
+**/
+body{
+	background:#A79B91;
+	margin:0;
+	font: 13px "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana;
+	line-height: 1.5em;
+}
+
+.header {
+	width:680px;
+	background:#066;
+	color:#eee;
+	margin:auto;
+	text-align:center;
+}
+
+.container {
+	background:#fffef0;
+	width:640px;
+	margin:auto;
+	padding:20px;
+}
+
+.footer {
+	border:0px;
+	border-top:1px dotted #666;
+	font-size:10px;
+	text-align:center;
+	width:640px;
+	margin:auto;
+	padding-left:20px;
+	padding-right:20px;
+	background-color:#fef;
+}
+
+.comment-section {
+	font-size:11px;
+	background-color:#fee;
+	display:none;
+}
+
+h1, h2, h3 {
+	font-family: Palatino Linotype, Georgia, serif;
+	color:#58b;
+}
